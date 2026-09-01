@@ -54,7 +54,7 @@ console.log(`Block time:        ${measured.toFixed(2)} ms measured → using ${b
 console.log("");
 console.log("── Deploy ────────────────────────────────────────────────");
 
-const predict = await viem.deployContract("RitualPredict", [blockTimeMs]);
+const predict = await viem.deployContract("RitualPredict", [blockTimeMs, RITUAL.scheduler]);
 console.log(`RitualPredict:     ${predict.address}`);
 console.log(`                   ${explorerAddress(predict.address)}`);
 

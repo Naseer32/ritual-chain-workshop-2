@@ -5,10 +5,18 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.1.8",
     "@nomicfoundation/hardhat-toolbox-viem": "^5.0.7",
+    "@nomicfoundation/hardhat-viem": "^3.0.9",
+    "@nomicfoundation/solidity-analyzer": "0.1.2",
+    "@types/chai": "^5.2.3",
     "@types/node": "^22.20.1",
+    "chai": "^6.2.2",
     "forge-std": "github:foundry-rs/forge-std#v1.9.4",
     "hardhat": "^3.13.0",
+    "solc": "0.8.28",
     "typescript": "~6.0.3",
     "viem": "^2.55.16"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
   }
 }

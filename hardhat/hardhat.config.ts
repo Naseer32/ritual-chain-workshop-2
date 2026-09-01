@@ -1,26 +1,32 @@
+import "dotenv/config";
 import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
+import hardhatViemPlugin from "@nomicfoundation/hardhat-viem";
 import { configVariable, defineConfig } from "hardhat/config";
 
 export default defineConfig({
-  plugins: [hardhatToolboxViemPlugin],
+  plugins: [hardhatToolboxViemPlugin, hardhatViemPlugin],
   solidity: {
     profiles: {
       default: {
         version: "0.8.28",
+        path: "/data/data/com.termux/files/home/ritual-chain-workshop-2/hardhat/node_modules/.pnpm/solc@0.8.28_debug@4.4.3_supports-color@7.2.0_/node_modules/solc/soljson.js",
         settings: {
           optimizer: {
             enabled: true,
             runs: 200,
           },
+          viaIR: true,
         },
       },
       production: {
         version: "0.8.28",
+        path: "/data/data/com.termux/files/home/ritual-chain-workshop-2/hardhat/node_modules/.pnpm/solc@0.8.28_debug@4.4.3_supports-color@7.2.0_/node_modules/solc/soljson.js",
         settings: {
           optimizer: {
             enabled: true,
             runs: 200,
           },
+          viaIR: true,
         },
       },
     },
@@ -37,7 +43,7 @@ export default defineConfig({
       chainType: "l1",
       chainId: 1979,
       url: "https://rpc.ritualfoundation.org",
-      accounts: [configVariable("DEPLOYER_PRIVATE_KEY")],
+      accounts: [configVariable("RITUAL_PRIVATE_KEY")],
     },
   },
 });
