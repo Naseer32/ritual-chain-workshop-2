@@ -1,0 +1,25 @@
+{
+  "intent": "build",
+  "features": [
+    "scheduled operations",
+    "HTTP oracle",
+    "frontend"
+  ],
+  "current_phase": 0,
+  "phases": [],
+  "files_read": [
+    "skills/ritual/SKILL.md"
+  ],
+  "next_file": "skills/ritual-meta-projection/SKILL.md",
+  "markers": {
+    "chain_connection": false,
+    "wallet_funded": false,
+    "contract_compiled": false,
+    "contract_deployed": false,
+    "precompile_simulated": false,
+    "precompile_settled": false,
+    "frontend_renders": false,
+    "frontend_connects": false,
+    "e2e_complete": false
+  }
+}
