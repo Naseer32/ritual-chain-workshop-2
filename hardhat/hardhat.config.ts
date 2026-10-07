@@ -3,32 +3,28 @@ import hardhatToolboxViemPlugin from "@nomicfoundation/hardhat-toolbox-viem";
 import hardhatViemPlugin from "@nomicfoundation/hardhat-viem";
 import { configVariable, defineConfig } from "hardhat/config";
 
+// Optional: path to a local soljson.js / solc binary (e.g. on Termux, where the
+// downloaded native compiler cannot run). Leave unset to let Hardhat download solc.
+//   SOLC_PATH=$PWD/node_modules/solc/soljson.js npx hardhat test
+const solcPath = process.env.SOLC_PATH;
+
+const solcProfile = {
+  version: "0.8.28",
+  ...(solcPath ? { path: solcPath } : {}),
+  settings: {
+    optimizer: { enabled: true, runs: 200 },
+    // Ritual requests carry many fields; without viaIR this can fail with
+    // "Stack too deep".
+    viaIR: true,
+  },
+};
+
 export default defineConfig({
   plugins: [hardhatToolboxViemPlugin, hardhatViemPlugin],
   solidity: {
     profiles: {
-      default: {
-        version: "0.8.28",
-        path: "/data/data/com.termux/files/home/ritual-chain-workshop-2/hardhat/node_modules/.pnpm/solc@0.8.28_debug@4.4.3_supports-color@7.2.0_/node_modules/solc/soljson.js",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-          viaIR: true,
-        },
-      },
-      production: {
-        version: "0.8.28",
-        path: "/data/data/com.termux/files/home/ritual-chain-workshop-2/hardhat/node_modules/.pnpm/solc@0.8.28_debug@4.4.3_supports-color@7.2.0_/node_modules/solc/soljson.js",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-          viaIR: true,
-        },
-      },
+      default: solcProfile,
+      production: solcProfile,
     },
   },
   networks: {
