@@ -3,7 +3,7 @@ import { ArrowLeft, Trophy, AlertCircle, Loader2 } from "lucide-react";
 import { useMarket } from "../hooks/useMarket";
 import { useClaim } from "../hooks/useClaim";
 import BetForm from "./BetForm";
-import { formatEtherValue, shortenAddress, getStateBadgeClass, MARKET_STATE_LABELS, OUTCOME_LABELS, getOutcomeColor, COMPARATOR_LABELS } from "../lib/utils";
+import { formatEtherValue, shortenAddress, getStateBadgeClass, MARKET_STATE_LABELS, OUTCOME_LABELS, COMPARATOR_LABELS } from "../lib/utils";
 import toast from "react-hot-toast";
 
 interface Props { marketId: bigint; onBack: () => void; }
