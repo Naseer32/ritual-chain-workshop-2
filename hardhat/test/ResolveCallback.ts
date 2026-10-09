@@ -315,4 +315,31 @@ describe("RitualPredict scheduled resolution (onScheduledResolve)", function () 
     expect(after.attempts).to.equal(before.attempts);
     expect(after.outcome).to.equal(before.outcome);
   });
+
+  // ───────────────────────── expired job ─────────────────────────
+
+  it("EXPIRED: a callback past the booked attempts (index 3) is ignored and changes nothing", async function () {
+    // Every oracle result in this file is a mock (setCode), not a real Ritual response.
+    const t = await setup();
+    await t.etch(TEE_REGISTRY, "MockTEERegistryFound");
+    await t.etch(HTTP_PRECOMPILE, "MockHttpUnsettled");
+    await t.etch(JQ_PRECOMPILE, "MockJq");
+    await t.mineToResolveBlock();
+
+    // Attempt 1 fails -> market is Resolving with 1 attempt used.
+    await t.fire(0n);
+    const before = await t.market();
+    expect(before.state).to.equal(State.Resolving);
+    expect(before.attempts).to.equal(1);
+
+    // Even if the executor would now answer, index 3 is beyond MAX_ATTEMPTS (3)
+    // and must be a silent no-op: no revert, no state change, no new attempt.
+    await t.etch(HTTP_PRECOMPILE, "MockHttpOk");
+    await t.fire(3n);
+
+    const after = await t.market();
+    expect(after.state).to.equal(State.Resolving);
+    expect(after.attempts).to.equal(1);
+    expect(after.outcome).to.equal(Outcome.Unresolved);
+  });
 });
